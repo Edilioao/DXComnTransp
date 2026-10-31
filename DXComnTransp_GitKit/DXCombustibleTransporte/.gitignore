@@ -1,0 +1,68 @@
+# ============================================================
+# DXComnTransp - .gitignore (Visual Studio 2022 + DevExpress XAF 22.1 + EF Core)
+# ============================================================
+
+# ---------- Sistema operativo ----------
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# ---------- Visual Studio (cachés y preferencias de usuario) ----------
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.cache
+*.vsidx
+*.log
+
+# ---------- Resultados de compilación ----------
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+*.binlog
+build/
+
+# ---------- NuGet ----------
+packages/
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+project.lock.json
+
+# ---------- Resultados de pruebas ----------
+TestResults/
+[Tt]est[Rr]esult/
+
+# ---------- Bases de datos y archivos de datos locales ----------
+*.mdf
+*.ldf
+*.ndf
+*.db
+*.sdf
+*.mdb
+*.bak
+
+# ---------- Publicación ----------
+publish/
+*.publishsettings
+PublishProfiles/
+
+# ---------- DevExpress XAF ----------
+# IMPORTANTE: los archivos .xafml y UnusableNodes.xml SÍ se versionan a propósito.
+# Solo se excluye el log de diseño (regenerable) y respaldos:
+Model.DesignedDiffs.log
+*.xafml.bak
+*.xafml.orig
+
+# ---------- Respaldos y temporales ----------
+Backups/
+*.tmp
+~$*

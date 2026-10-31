@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="DXComnTransp">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
+  </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Catálogos">
+        <Items>
+          <Item Id="@2c717736-9281-4945-9415-41be457f9603" Caption="Generales" Index="0" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Deposito_ListView" ViewId="Deposito_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="Moneda_ListView" ViewId="Moneda_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="Proveedor_ListView" ViewId="Proveedor_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TipoInventario_ListView" ViewId="TipoInventario_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="UnidadMedida_ListView" ViewId="UnidadMedida_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="@0af0109d-ebac-41ec-b1e4-7ee5c573b560" Caption="Combustible" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="TipoCombustible_ListView" ViewId="TipoCombustible_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TipoMovimientoCombustible_ListView" ViewId="TipoMovimientoCombustible_ListView" ObjectKey="" Caption="Movimientos Combustible" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="@7ccb9855-630a-4ea8-8104-13654fea636e" Caption="Vehículos" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Marca_ListView" ViewId="Marca_ListView" ObjectKey="" Index="0" IsNewNode="True" />
+              <Item Id="Modelo_ListView" ViewId="Modelo_ListView" ObjectKey="" Index="1" IsNewNode="True" />
+              <Item Id="TipoServicio_ListView" ViewId="TipoServicio_ListView" ObjectKey="" Index="2" IsNewNode="True" />
+              <Item Id="TipoVehiculo_ListView" ViewId="TipoVehiculo_ListView" ObjectKey="" Index="3" IsNewNode="True" />
+              <Item Id="Chofer_ListView" ViewId="Chofer_ListView" ObjectKey="" Index="4" IsNewNode="True" />
+              <Item Id="Vehiculo_ListView" ViewId="Vehiculo_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="VehiculoChofer_ListView" ViewId="VehiculoChofer_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TipoDocumentoVehiculo_ListView" ViewId="TipoDocumentoVehiculo_ListView" ObjectKey="" Caption="Tipos de documento" IsNewNode="True" />
+              <Item Id="DocumentoVehiculo_ListView" ViewId="DocumentoVehiculo_ListView" ObjectKey="" Caption="Documentos de vehículos" IsNewNode="True" />
+            </Items>
+          </Item>
+          <Item Id="Deposito_ListView" Removed="True" />
+          <Item Id="Marca_ListView" Removed="True" />
+          <Item Id="Modelo_ListView" Removed="True" />
+          <Item Id="Moneda_ListView" Removed="True" />
+          <Item Id="Proveedor_ListView" Removed="True" />
+          <Item Id="TipoCombustible_ListView" Removed="True" />
+          <Item Id="TipoInventario_ListView" Removed="True" />
+          <Item Id="TipoMovimientoCombustible_ListView" Removed="True" />
+          <Item Id="TipoServicio_ListView" Removed="True" />
+          <Item Id="TipoVehiculo_ListView" Removed="True" />
+          <Item Id="TipoDocumentoVehiculo_ListView" Removed="True" />
+          <Item Id="DocumentoVehiculo_ListView" Removed="True" />
+          <Item Id="UnidadMedida_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="Catálogos/Vehículos" Removed="True">
+        <Items>
+          <Item Id="Chofer_ListView" Removed="True" />
+          <Item Id="Vehiculo_ListView" Removed="True" />
+          <Item Id="VehiculoChofer_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="Combustible" Caption="Operaciones" />
+    </Items>
+  </NavigationItems>
+  <Options>
+    <LayoutManagerOptions RequiredFieldMark="*" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="22.1.3.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.1.3.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="ApplicationUser_ListView" Caption="Users" />
+    <DetailView Id="CompraCombustible_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CompraCombustible">
+              <LayoutGroup Id="CompraCombustible_col1">
+                <LayoutItem Id="Proveedor" Index="2" />
+                <LayoutItem Id="NoFactura" Index="3" />
+                <LayoutItem Id="FechaFactura" Index="4" />
+                <LayoutItem Id="Moneda" Index="5" />
+                <LayoutItem Id="ImporteProductos" Index="6" ViewItem="ImporteProductos" ShowCaption="" IsNewNode="True" />
+                <LayoutItem Id="Flete" Index="7" Removed="True" />
+                <LayoutItem Id="THCD" Index="8" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CompraCombustible_col2">
+                <LayoutItem Id="Flete" Index="0" ViewItem="Flete" ShowCaption="" IsNewNode="True" />
+                <LayoutItem Id="ImporteProductos" Index="1" Removed="True" />
+                <LayoutItem Id="THCD" Index="1" ViewItem="THCD" ShowCaption="" IsNewNode="True" />
+                <LayoutItem Id="Seguro" Index="2" />
+                <LayoutItem Id="ImporteTotal" Index="3" />
+                <LayoutGroup Id="FechasTerminada" Index="4" Direction="Horizontal" IsNewNode="True">
+                  <LayoutItem Id="Terminada" Index="0" ViewItem="Terminada" ShowCaption="" IsNewNode="True" />
+                  <LayoutItem Id="FechaTerminada" Index="1" ViewItem="FechaTerminada" ShowCaption="" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Terminada" Index="4" Removed="True" />
+                <LayoutGroup Id="FechaCancelada" Index="5" Direction="Horizontal" IsNewNode="True" Removed="True">
+                  <LayoutItem Id="Cancelada" Index="0" ViewItem="Cancelada" ShowCaption="" IsNewNode="True" />
+                  <LayoutItem Id="FechaCancelada" Index="1" ViewItem="FechaCancelada" ShowCaption="" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="FechaTerminada" Index="5" Removed="True" />
+                <LayoutItem Id="Cancelada" Index="6" Removed="True" />
+                <LayoutItem Id="Comentario" Index="6" ViewItem="Comentario" ShowCaption="" IsNewNode="True" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="CompraCombustible_Detalles_ListView">
+      <Columns>
+        <ColumnInfo Id="Producto" Index="0" />
+        <ColumnInfo Id="Medida" Index="1" Caption="UM" />
+        <ColumnInfo Id="Precio" Index="2" />
+        <ColumnInfo Id="Cantidad" Index="3" />
+        <ColumnInfo Id="Importe" Index="4">
+          <Summary>
+            <ColumnSummaryItem Id="@7dfbe73c-44ac-4da0-a596-78e7fa0a91e8" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Compra" Index="5" />
+        <ColumnInfo Id="IdCompra" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="CompraCombustible_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="Proveedor" Index="2" />
+        <ColumnInfo Id="NoFactura" Index="3" />
+        <ColumnInfo Id="FechaFactura" Index="4" />
+        <ColumnInfo Id="Flete">
+          <Summary>
+            <ColumnSummaryItem Id="@50ff278d-7123-4c38-8293-664eced04915" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="THCD">
+          <Summary>
+            <ColumnSummaryItem Id="@65705ed5-b49a-4704-98d9-988ac76c8b57" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Seguro">
+          <Summary>
+            <ColumnSummaryItem Id="@3161f93c-6b48-4389-ba5d-682eeba5aae2" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="ImporteTotal" Index="9">
+          <Summary>
+            <ColumnSummaryItem Id="@44bfb1aa-1d62-49c5-a6f4-458878051400" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="Terminada" Index="10" />
+        <ColumnInfo Id="Cancelada" Index="11" />
+        <ColumnInfo Id="Comentario" Index="12" />
+        <ColumnInfo Id="ImporteProductos">
+          <Summary>
+            <ColumnSummaryItem Id="@97b19c37-71f4-4acd-9a16-6ba1d0c0e8d6" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+        <ColumnInfo Id="FechaCancelada" Removed="True" />
+        <ColumnInfo Id="FechaTerminada" Removed="True" />
+        <ColumnInfo Id="IdMoneda" Removed="True" />
+        <ColumnInfo Id="IdProveedor" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="CompraCombustibleDetalle_ListView">
+      <Columns>
+        <ColumnInfo Id="Producto" Index="0" />
+        <ColumnInfo Id="Medida" Index="1" />
+        <ColumnInfo Id="Precio" Index="2" />
+        <ColumnInfo Id="Cantidad" Index="3" />
+        <ColumnInfo Id="Importe" Index="4" />
+        <ColumnInfo Id="Compra" Index="5" />
+        <ColumnInfo Id="IdCompra" Removed="True" />
+        <ColumnInfo Id="IdMedida" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="KpiDefinition_ListView">
+      <Columns>
+        <ColumnInfo Id="Criteria" Width="48" />
+        <ColumnInfo Id="Expression" Width="48" />
+        <ColumnInfo Id="Name" Width="297" SortOrder="Descending" />
+        <ColumnInfo Id="Active" Index="1" Width="80" />
+        <ColumnInfo Id="TargetObjectType" Index="2" Width="48" />
+        <ColumnInfo Id="GreenZone" Index="3" Width="34" />
+        <ColumnInfo Id="RedZone" Index="4" Width="34" />
+        <ColumnInfo Id="Range" Index="5" Width="48" />
+        <ColumnInfo Id="Compare" Index="6" Width="34" />
+        <ColumnInfo Id="RangeToCompare" Index="7" Width="48" />
+        <ColumnInfo Id="MeasurementFrequency" Index="8" Width="48" />
+        <ColumnInfo Id="Direction" Index="9" Width="48" />
+        <ColumnInfo Id="Period" Index="10" Width="48" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ReportDataV2_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ReportDataV2">
+              <LayoutItem Id="DisplayName" ViewItem="DisplayName" Index="0" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="ParametersObjectType" ViewItem="ParametersObjectType" Index="1" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="DataTypeCaption" ViewItem="DataTypeCaption" Index="2" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="IsInplaceReport" Index="3" ViewItem="IsInplaceReport" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TipoVehiculo_ListView">
+      <Columns>
+        <ColumnInfo Id="IdCombustible" Index="-1" />
+        <ColumnInfo Id="IdMarca" SortIndex="0" SortOrder="Descending" Index="-1" />
+        <ColumnInfo Id="IdModelo" Index="-1" />
+        <ColumnInfo Id="TipoVehiculoNombre" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Marca" Index="1" />
+        <ColumnInfo Id="Modelo" Index="2" />
+        <ColumnInfo Id="Bateria" Index="3" />
+        <ColumnInfo Id="Neumaticos" Index="4" />
+        <ColumnInfo Id="Combustible" Index="5" />
+        <ColumnInfo Id="NoPlazas" Index="6" />
+        <ColumnInfo Id="IndiceNormado" Index="7" />
+        <ColumnInfo Id="CapTanqueComb" Index="8" />
+        <ColumnInfo Id="CapCarga" Index="9" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

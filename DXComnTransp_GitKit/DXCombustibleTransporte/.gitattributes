@@ -1,0 +1,29 @@
+# Normalización de fines de línea (evita ruidos entre Windows y otros equipos)
+* text=auto
+
+# Código y texto de Visual Studio
+*.cs     text diff=csharp
+*.csproj text
+*.sln    text eol=crlf
+*.config text
+*.json   text
+*.xml    text
+*.razor  text
+*.css    text
+*.js     text
+*.html   text
+*.sql    text
+
+# Modelos XAF (siempre con CRLF de Windows)
+*.xafml  text eol=crlf
+
+# Binarios
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.ico    binary
+*.gif    binary
+*.dll    binary
+*.exe    binary
+*.mdb    binary
+*.pdf    binary

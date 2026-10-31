@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Deterministic>false</Deterministic>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Configurations>Debug;Release;EasyTest</Configurations>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.ExpressApp" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.AuditTrail.EFCore" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Chart" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.EFCore" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Kpi" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Objects" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Office" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotGrid" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="22.1.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="22.1.3" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="22.1.3" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl.EFCore" Version="22.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Blazor.v22.1">
+      <HintPath>C:\Program Files\DevExpress 22.1\Components\Offline Packages\devexpress.blazor\22.1.3\lib\net6.0\DevExpress.Blazor.v22.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Blazor.v22.1">
+      <HintPath>C:\Program Files\DevExpress 22.1\Components\Offline Packages\devexpress.expressapp.blazor\22.1.3\lib\net6.0\DevExpress.ExpressApp.Blazor.v22.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v22.1.Web">
+      <HintPath>C:\Program Files\DevExpress 22.1\Components\Offline Packages\devexpress.web.reporting.common\22.1.3\lib\netstandard2.0\DevExpress.XtraReports.v22.1.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

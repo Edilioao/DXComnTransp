@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SGCOMB-TRANS">
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Event_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="KPI" Removed="True" />
+      <Item Id="Reports">
+        <Items>
+          <Item Id="Analysis_ListView" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="22.1.3.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="22.1.3.0" IsNewNode="True" />
+  </SchemaModules>
+  <ViewItems>
+    <PropertyEditor Name="PropertyEditors">
+      <RegisteredPropertyEditor PropertyType="System.Decimal" DefaultDisplayFormat="{0:N2}" DefaultEditMask="N2" />
+    </PropertyEditor>
+  </ViewItems>
+  <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
+    <DetailView Id="CompraCombustible_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="CompraCombustible">
+              <LayoutGroup Id="CompraCombustible_col1">
+                <LayoutItem Id="Proveedor" Index="2" />
+                <LayoutItem Id="NoFactura" Index="3" />
+                <LayoutItem Id="FechaFactura" Index="4" />
+                <LayoutItem Id="Moneda" Index="5" />
+                <LayoutItem Id="Flete" Index="6" />
+                <LayoutItem Id="THCD" Index="7" />
+              </LayoutGroup>
+              <LayoutGroup Id="CompraCombustible_col2">
+                <LayoutItem Id="Seguro" ViewItem="Seguro" ShowCaption="" Index="0" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ImporteTotal" Index="1" />
+                <LayoutItem Id="Terminada" Index="2" />
+                <LayoutItem Id="FechaTerminada" Index="3" />
+                <LayoutItem Id="Cancelada" Index="4" />
+                <LayoutItem Id="FechaCancelada" Index="5" />
+                <LayoutItem Id="Comentario" Index="6" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="CompraCombustible_ListView">
+      <Columns>
+        <ColumnInfo Id="Proveedor" Index="2" />
+        <ColumnInfo Id="NoFactura" Index="3" />
+        <ColumnInfo Id="FechaFactura" Index="4" />
+        <ColumnInfo Id="ImporteTotal" Index="9" />
+        <ColumnInfo Id="Comentario" Index="10" />
+        <ColumnInfo Id="Terminada" Index="11" />
+        <ColumnInfo Id="Cancelada" Index="12" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
