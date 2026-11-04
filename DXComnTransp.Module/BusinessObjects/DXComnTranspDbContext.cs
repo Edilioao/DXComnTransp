@@ -342,6 +342,9 @@ public class DXComnTranspEFCoreDbContext : DbContext {
 
         modelBuilder.Entity<CompraCombustibleDetalle>(b =>
         {
+            b.Property(x => x.NoContenedor)
+                .HasMaxLength(11);
+
             b.Property(x => x.Precio)
                 .HasPrecision(38, 20);
 

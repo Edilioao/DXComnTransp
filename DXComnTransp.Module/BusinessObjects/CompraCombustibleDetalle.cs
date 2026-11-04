@@ -1,12 +1,11 @@
 ﻿using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DXComnTransp.Module.BusinessObjects;
 
-[DefaultClassOptions]
-[NavigationItem("Combustible")]
 [Table("ComprasCombustibleDetalle")]
 public class CompraCombustibleDetalle
 {
@@ -70,6 +69,22 @@ public class CompraCombustibleDetalle
     [System.ComponentModel.DataAnnotations.Schema.ForeignKey("IdMedida")]
     [ModelDefault("Caption", "Unidad de Medida")]
     public virtual UnidadMedida Medida { get; set; }
+
+    // ============================================================
+    // NO. CONTENEDOR
+    // ============================================================
+
+    [RuleRequiredField(
+        "CompraCombustibleDetalleNoContenedorRequerido",
+        DefaultContexts.Save,
+        "El No. de contenedor es obligatorio."
+    )]
+    [ModelDefault("Caption", "No. Contenedor")]
+    // Máscara ISO 6346: 4 letras + 7 dígitos, ej. CNTR0000001
+    [ModelDefault("EditMask", "LLLL0000000")]
+    [ModelDefault("MaskType", "Simple")]
+    [MaxLength(11)]
+    public virtual string NoContenedor { get; set; }
 
     // ============================================================
     // PRECIO

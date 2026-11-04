@@ -167,6 +167,10 @@ namespace DXComnTransp.Module.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("NoContenedor")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<decimal>("Precio")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasPrecision(38, 20)

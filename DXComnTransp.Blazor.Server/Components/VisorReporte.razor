@@ -1,0 +1,124 @@
+@namespace DXComnTransp.Blazor.Server.Components
+@using DXComnTransp.Blazor.Server.Services
+@using DevExpress.Blazor
+@inject VisorReporteService Visor
+@implements IDisposable
+
+@*
+    Visor del reporte con DxPopup, el componente oficial de DevExpress
+    Blazor. Es el mismo mecanismo que usan los diálogos de XAF, así que
+    se pinta SIEMPRE encima de la vista activa: lista y detalle, cuantas
+    veces se abra, sin tocar el DOM desde JavaScript y sin dejar
+    overlays propios.
+
+    El iframe carga el PDF servido por /reportes/compra-combustible-pdf/
+    (mismo origen y misma cookie, así que no requiere permisos raros).
+
+    El botón Imprimir es un ENLACE real (target="_blank") dentro de la
+    ventana: los navegadores no bloquean enlaces y abren el PDF en una
+    pestaña nueva, donde el usuario imprime con su visor de PDF.
+    No se usa window.print(): los navegadores no permiten imprimir el
+    visor de PDF de un iframe incrustado.
+*@
+
+<DxPopup Visible="_visible"
+         VisibleChanged="AlCambiarVisibilidad"
+         HeaderText="Vista previa del reporte"
+         ShowCloseButton="true"
+         CloseOnOutsideClick="false"
+         Width="92%"
+         Height="92%">
+
+    <ChildContent>
+        <div style="display:flex;flex-direction:column;height:100%;
+                    font-family:'Segoe UI',Arial,sans-serif;">
+
+            <div style="flex:0 0 auto;display:flex;justify-content:flex-end;
+                        gap:8px;padding:0 0 8px 0;">
+
+                <a href="@UrlConMarcaTiempo"
+                   target="_blank" rel="noopener"
+                   style="display:inline-block;padding:6px 14px;border-radius:5px;
+                          background:#1d6fe0;color:#fff;font-size:13px;
+                          font-weight:600;text-decoration:none;cursor:pointer;">
+                    Imprimir (pestaña nueva)
+                </a>
+
+                <button type="button" @onclick="Cerrar"
+                        style="padding:6px 14px;border:0;border-radius:5px;
+                               background:#e2e8f0;color:#1f2937;font-size:13px;
+                               font-weight:600;cursor:pointer;">
+                    Cerrar
+                </button>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Visor.Url))
+            {
+                <iframe src="@Visor.Url"
+                        style="flex:1 1 auto;width:100%;border:0;background:#fff;">
+                </iframe>
+            }
+        </div>
+    </ChildContent>
+</DxPopup>
+
+@code {
+    private bool _visible;
+
+    protected override void OnInitialized()
+    {
+        Visor.Cambio += AlCambiarEstadoVisor;
+
+        _visible = !string.IsNullOrEmpty(Visor.Url);
+
+        // Diagnóstico: con este hash comparamos en %TEMP%\dx-reportes.log
+        // que el servicio que resuelve el controller ("inst=...") sea la
+        // MISMA instancia que escucha este componente.
+        DiagnosticoReportes.Registrar(
+            $"VisorReporte componente listo comp={GetHashCode()} servicio={Visor.GetHashCode()}");
+    }
+
+    private void AlCambiarEstadoVisor()
+    {
+        _visible = !string.IsNullOrEmpty(Visor.Url);
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void AlCambiarVisibilidad(bool visible)
+    {
+        _visible = visible;
+
+        if (!visible)
+        {
+            Visor.Cerrar();
+        }
+    }
+
+    /// <summary>
+    /// Misma URL con una marca de tiempo: evita que el navegador reutilice
+    /// el PDF guardado en su caché entre aperturas distintas.
+    /// </summary>
+    private string UrlConMarcaTiempo
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(Visor.Url))
+                return null;
+
+            string separador = Visor.Url.Contains('?') ? "&" : "?";
+
+            return Visor.Url + separador + "t=" + DateTime.Now.Ticks;
+        }
+    }
+
+    private void Cerrar()
+    {
+        Visor.Cerrar();
+    }
+
+    public void Dispose()
+    {
+        Visor.Cambio -= AlCambiarEstadoVisor;
+    }
+}

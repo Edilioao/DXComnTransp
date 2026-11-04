@@ -7,7 +7,7 @@ namespace DXComnTransp.Blazor.Server.Services;
 /// Almacena temporalmente los PDF de los reportes DevExpress generados,
 /// para que el navegador pueda abrirlos en una pestaña nueva mediante un
 /// token sin volver a consultar la base de datos.
-/// Espejo de ReporteCompraCache (HTML), pero con bytes de PDF.
+/// Lo usa la acción "Imprimir Compra" (CompraCombustibleImprimirController).
 /// </summary>
 public static class ReporteCompraPdfCache
 {
@@ -21,7 +21,11 @@ public static class ReporteCompraPdfCache
     private static readonly ConcurrentDictionary<string, Entrada> Entradas =
         new ConcurrentDictionary<string, Entrada>();
 
-    private static readonly TimeSpan Vigencia = TimeSpan.FromMinutes(30);
+    private static readonly TimeSpan Vigencia = TimeSpan.FromMinutes(15);
+
+    // Tope de PDF en memoria: si se imprimen muchas compras seguidas, se
+    // descartan los más antiguos para no acumular nada indefinidamente.
+    private const int MaximoEntradas = 10;
 
     public static string Guardar(byte[] pdf, string nombreArchivo)
     {
@@ -37,6 +41,8 @@ public static class ReporteCompraPdfCache
                 : nombreArchivo,
             Expira = DateTime.UtcNow.Add(Vigencia)
         };
+
+        Recortar();
 
         return token;
     }
@@ -66,6 +72,33 @@ public static class ReporteCompraPdfCache
         {
             if (par.Value.Expira < ahora)
                 Entradas.TryRemove(par.Key, out _);
+        }
+    }
+
+    /// <summary>
+    /// Si hay más PDF de los permitidos, elimina los que expiran antes
+    /// (es decir, los generados primero).
+    /// </summary>
+    private static void Recortar()
+    {
+        while (Entradas.Count > MaximoEntradas)
+        {
+            string masViejo = null;
+            DateTime expiraMasViejo = DateTime.MaxValue;
+
+            foreach (var par in Entradas)
+            {
+                if (par.Value.Expira < expiraMasViejo)
+                {
+                    expiraMasViejo = par.Value.Expira;
+                    masViejo = par.Key;
+                }
+            }
+
+            if (masViejo == null)
+                return;
+
+            Entradas.TryRemove(masViejo, out _);
         }
     }
 }

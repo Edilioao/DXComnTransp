@@ -20,6 +20,10 @@ public class ReporteCompraPdfEndpointController : ControllerBase
     {
         (byte[] pdf, string nombreArchivo) = ReporteCompraPdfCache.Obtener(token);
 
+        DiagnosticoReportes.Registrar(
+            $"PDF endpoint token={token} user='{User?.Identity?.Name}' " +
+            $"encontrado={pdf != null} bytes={pdf?.Length ?? 0}");
+
         if (pdf == null || pdf.Length == 0)
         {
             return Content(PaginaExpirada(), "text/html; charset=utf-8");

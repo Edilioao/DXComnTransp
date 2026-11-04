@@ -13,7 +13,8 @@ namespace DXComnTransp.Module.Reports;
 
 /// <summary>
 /// Reporte DevExpress (XtraReport) de una compra de combustible.
-/// Réplica del formato del reporte HTML (CompraCombustibleReporteHtml).
+/// Formato profesional imprimible: logo, datos de la empresa, resumen
+/// de la compra, detalle completo, totales y comentario.
 ///
 /// Diseño "a prueba de errores":
 ///  - NO usa entidades de EF Core como DataSource (evita lazy-loading y
@@ -53,6 +54,7 @@ public class CompraCombustibleReport : XtraReport
     {
         public int Numero { get; set; }
         public string Combustible { get; set; }
+        public string NoContenedor { get; set; }
         public string UnidadMedida { get; set; }
         public decimal Cantidad { get; set; }
         public decimal Precio { get; set; }
@@ -62,6 +64,7 @@ public class CompraCombustibleReport : XtraReport
     private CompraCombustibleReport()
     {
         PaperKind = PaperKind.Letter;
+        Landscape = true;   // <-- add
         Margins = new Margins(40, 40, 40, 40);
         Font = FuenteBase;
     }
@@ -115,6 +118,7 @@ public class CompraCombustibleReport : XtraReport
             {
                 Numero = numero,
                 Combustible = Texto(d.Producto?.Combustible),
+                NoContenedor = Texto(d.NoContenedor),
                 UnidadMedida = Texto(d.Medida?.UM),
                 Cantidad = d.Cantidad,
                 Precio = d.Precio,
@@ -136,7 +140,7 @@ public class CompraCombustibleReport : XtraReport
         {
             new TopMarginBand { HeightF = 20F },
             ConstruirEncabezado(compra, cfg, empresa, iniciales, estado, colorEstado,
-            detalles.Count, importeProductos, total),
+                detalles.Count, importeProductos, total),
             ConstruirCabeceraTabla(),
             ConstruirDetalle(),
             ConstruirPie(compra, empresa, importeProductos, cantidadTotal, filas.Count == 0),
@@ -151,15 +155,15 @@ public class CompraCombustibleReport : XtraReport
     // REPORT HEADER: EMPRESA + TÍTULO/FOLIO/ESTADO + DATOS + RESUMEN
     // ============================================================
     private ReportHeaderBand ConstruirEncabezado(
-     CompraCombustible compra,
-     Configuracion cfg,
-     string empresa,
-     string iniciales,
-     string estado,
-     Color colorEstado,
-     int cantidadDetalles,      // <-- nuevo
-     decimal importeProductos,  // <-- nuevo
-     decimal total)             // <-- nuevo
+        CompraCombustible compra,
+        Configuracion cfg,
+        string empresa,
+        string iniciales,
+        string estado,
+        Color colorEstado,
+        int cantidadDetalles,
+        decimal importeProductos,
+        decimal total)
     {
         var band = new ReportHeaderBand();
         var controles = new List<XRControl>();
@@ -175,7 +179,10 @@ public class CompraCombustibleReport : XtraReport
             };
             try
             {
-                using var ms = new System.IO.MemoryStream(cfg.Logo);
+                // OJO: sin 'using'. GDI+ exige que el stream permanezca abierto
+                // durante toda la vida de la Image; liberarlo provoca
+                // "A generic error occurred in GDI+" al renderizar el reporte.
+                var ms = new System.IO.MemoryStream(cfg.Logo);
                 pic.Image = Image.FromStream(ms);
             }
             catch
@@ -339,7 +346,8 @@ public class CompraCombustibleReport : XtraReport
         var fila = new XRTableRow();
 
         CeldaFija(fila, "#", 45F, derecho: true, cabecera: true);
-        CeldaFija(fila, "Combustible", 425F, derecho: false, cabecera: true);
+        CeldaFija(fila, "No. Contenedor", 120F, derecho: false, cabecera: true);
+        CeldaFija(fila, "Combustible", 305F, derecho: false, cabecera: true);
         CeldaFija(fila, "U/M", 80F, derecho: true, cabecera: true);
         CeldaFija(fila, "Cantidad", 150F, derecho: true, cabecera: true);
         CeldaFija(fila, "Precio", 160F, derecho: true, cabecera: true);
@@ -364,7 +372,8 @@ public class CompraCombustibleReport : XtraReport
         var fila = new XRTableRow();
 
         CeldaExpresion(fila, "[Numero]", 45F, "{0:N0}", derecho: true);
-        CeldaExpresion(fila, "[Combustible]", 425F, null, derecho: false);
+        CeldaExpresion(fila, "[NoContenedor]", 120F, null, derecho: false);
+        CeldaExpresion(fila, "[Combustible]", 305F, null, derecho: false);
         CeldaExpresion(fila, "[UnidadMedida]", 80F, null, derecho: true);
         CeldaExpresion(fila, "[Cantidad]", 150F, "{0:N2}", derecho: true);
         CeldaExpresion(fila, "[Precio]", 160F, "{0:$ #,##0.0000}", derecho: true);

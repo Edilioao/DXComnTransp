@@ -109,16 +109,17 @@
     </DetailView>
     <ListView Id="CompraCombustible_Detalles_ListView">
       <Columns>
-        <ColumnInfo Id="Producto" Index="0" />
-        <ColumnInfo Id="Medida" Index="1" Caption="UM" />
-        <ColumnInfo Id="Precio" Index="2" />
-        <ColumnInfo Id="Cantidad" Index="3" />
-        <ColumnInfo Id="Importe" Index="4">
+        <ColumnInfo Id="NoContenedor" Index="0" />
+        <ColumnInfo Id="Producto" Index="1" />
+        <ColumnInfo Id="Medida" Index="2" Caption="UM" />
+        <ColumnInfo Id="Precio" Index="3" />
+        <ColumnInfo Id="Cantidad" Index="4" />
+        <ColumnInfo Id="Importe" Index="5">
           <Summary>
             <ColumnSummaryItem Id="@7dfbe73c-44ac-4da0-a596-78e7fa0a91e8" SummaryType="Sum" IsNewNode="True" />
           </Summary>
         </ColumnInfo>
-        <ColumnInfo Id="Compra" Index="5" />
+        <ColumnInfo Id="Compra" Index="6" />
         <ColumnInfo Id="IdCompra" Removed="True" />
       </Columns>
     </ListView>
@@ -163,12 +164,13 @@
     </ListView>
     <ListView Id="CompraCombustibleDetalle_ListView">
       <Columns>
-        <ColumnInfo Id="Producto" Index="0" />
-        <ColumnInfo Id="Medida" Index="1" />
-        <ColumnInfo Id="Precio" Index="2" />
-        <ColumnInfo Id="Cantidad" Index="3" />
-        <ColumnInfo Id="Importe" Index="4" />
-        <ColumnInfo Id="Compra" Index="5" />
+        <ColumnInfo Id="NoContenedor" Index="0" />
+        <ColumnInfo Id="Producto" Index="1" />
+        <ColumnInfo Id="Medida" Index="2" />
+        <ColumnInfo Id="Precio" Index="3" />
+        <ColumnInfo Id="Cantidad" Index="4" />
+        <ColumnInfo Id="Importe" Index="5" />
+        <ColumnInfo Id="Compra" Index="6" />
         <ColumnInfo Id="IdCompra" Removed="True" />
         <ColumnInfo Id="IdMedida" Removed="True" />
       </Columns>

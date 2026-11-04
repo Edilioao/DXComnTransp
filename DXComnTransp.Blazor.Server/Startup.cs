@@ -60,6 +60,7 @@ public class Startup {
         services.AddHttpContextAccessor();
         services.AddScoped<IAuthenticationTokenProvider, JwtTokenProviderService>();
         services.AddScoped<CircuitHandler, CircuitHandlerProxy>();
+        services.AddScoped<VisorReporteService>();
         services.AddXaf(Configuration, builder => {
             builder.UseApplication<DXComnTranspBlazorApplication>();
             builder.Modules

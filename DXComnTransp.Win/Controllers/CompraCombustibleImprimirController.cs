@@ -30,7 +30,7 @@ public class CompraCombustibleImprimirController : ViewController
         imprimirAction = new SimpleAction(
             this,
             ImprimirActionId,
-            PredefinedCategory.Reports)
+            PredefinedCategory.RecordEdit)
         {
             Caption = "Imprimir Compra",
             ImageName = "Action_Printing_Print",
@@ -51,6 +51,14 @@ public class CompraCombustibleImprimirController : ViewController
         {
             throw new UserFriendlyException(
                 "Debe seleccionar una compra para imprimir.");
+        }
+
+        // Una compra nueva (aún sin guardar) no existe en la BD:
+        // no hay nada que imprimir todavía.
+        if (compra.Id == 0)
+        {
+            throw new UserFriendlyException(
+                "Guarde la compra antes de imprimirla.");
         }
 
         // ========================================================
