@@ -45,8 +45,8 @@ public class CompraCombustibleController
                 "¿Está seguro de que desea terminar esta compra?\n\n" +
                 "Una vez terminada, la compra no podrá modificarse."
         };
-
-        terminarAction.Execute += TerminarAction_Execute;
+        // Manejador: se suscribe en OnActivated (no aquí), porque XAF
+        // reutiliza la instancia del controller entre vistas.
 
 
         // ========================================================
@@ -65,8 +65,7 @@ public class CompraCombustibleController
                 "¿Está seguro de que desea cancelar esta compra?\n\n" +
                 "Una compra cancelada no podrá modificarse."
         };
-
-        cancelarAction.Execute += CancelarAction_Execute;
+        // Manejadores: se suscriben en OnActivated (no aquí).
     }
 
 
@@ -79,6 +78,16 @@ public class CompraCombustibleController
         base.OnActivated();
 
         ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
+
+        // -= antes de += : la instancia del controller se REUTILIZA al
+        // cambiar de vista; suscribir solo en el constructor deja la
+        // acción sorda tras la primera desactivación (lección
+        // aprendida con CompraCombustibleImprimirController).
+        terminarAction.Execute -= TerminarAction_Execute;
+        terminarAction.Execute += TerminarAction_Execute;
+
+        cancelarAction.Execute -= CancelarAction_Execute;
+        cancelarAction.Execute += CancelarAction_Execute;
 
         ActualizarEstado();
         ActualizarEliminacion();

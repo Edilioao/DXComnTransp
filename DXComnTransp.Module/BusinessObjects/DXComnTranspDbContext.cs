@@ -88,6 +88,9 @@ public class DXComnTranspEFCoreDbContext : DbContext {
     public DbSet<VehiculoChofer> VehiculosChofer { get; set; }
     public DbSet<CompraCombustible> ComprasCombustible { get; set; }
     public DbSet<CompraCombustibleDetalle> ComprasCombustibleDetalles { get; set; }
+    public DbSet<EntradaCombustible> EntradasCombustible { get; set; }
+    public DbSet<EntradaCombustibleDetalle> EntradasCombustibleDetalles { get; set; }
+    public DbSet<Inventario> Inventarios { get; set; }
     public DbSet<ReporteVehiculo> ReportesVehiculos { get; set; }
     public DbSet<Configuracion> Configuraciones { get; set; }
 
@@ -367,6 +370,95 @@ public class DXComnTranspEFCoreDbContext : DbContext {
             b.HasOne(x => x.Medida)
                 .WithMany()
                 .HasForeignKey(x => x.IdMedida)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // ============================================================
+        // ENTRADAS DE COMBUSTIBLE (tabla legada RecepcionResumen /
+        // RecepcionDetalle; las tablas YA existen en la BD, no
+        // generar migración para ellas)
+        // ============================================================
+
+        modelBuilder.Entity<EntradaCombustible>(b =>
+        {
+            b.Property(x => x.NoFactura)
+                .HasMaxLength(50);
+
+            b.Property(x => x.Comentario)
+                .HasMaxLength(4000);
+
+            b.Property(x => x.TasaCambio)
+                .HasPrecision(18, 4);
+
+            b.HasOne(x => x.Deposito)
+                .WithMany()
+                .HasForeignKey(x => x.IdDeposito)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            b.HasOne(x => x.Proveedor)
+                .WithMany()
+                .HasForeignKey(x => x.IdProveedor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            b.HasOne(x => x.Moneda)
+                .WithMany()
+                .HasForeignKey(x => x.IdMoneda)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<EntradaCombustibleDetalle>(b =>
+        {
+            // La FK del resumen tiene ON DELETE CASCADE en la BD legada.
+            b.Property(x => x.Precio)
+                .HasPrecision(18, 4);
+
+            b.Property(x => x.TasaCambio)
+                .HasPrecision(18, 4);
+
+            b.Property(x => x.Cantidad)
+                .HasPrecision(18, 2);
+
+            b.HasOne(x => x.Entrada)
+                .WithMany(x => x.Detalles)
+                .HasForeignKey(x => x.IdRecepcion)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            b.HasOne(x => x.Producto)
+                .WithMany()
+                .HasForeignKey(x => x.IdProducto)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            b.HasOne(x => x.Medida)
+                .WithMany()
+                .HasForeignKey(x => x.IdMedida)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // ============================================================
+        // INVENTARIO (tabla legada Inventarios, ya existe en la BD)
+        // ============================================================
+
+        modelBuilder.Entity<Inventario>(b =>
+        {
+            b.Property(x => x.Precio)
+                .HasPrecision(18, 4);
+
+            b.Property(x => x.Existencia)
+                .HasPrecision(18, 4);
+
+            b.HasOne(x => x.Deposito)
+                .WithMany()
+                .HasForeignKey(x => x.IdDeposito)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            b.HasOne(x => x.TipoInventario)
+                .WithMany()
+                .HasForeignKey(x => x.IdTipoInv)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            b.HasOne(x => x.Producto)
+                .WithMany()
+                .HasForeignKey(x => x.IdProducto)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 

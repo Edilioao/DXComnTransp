@@ -48,6 +48,20 @@ Lecciones ganadas a fuerza de depurar (ver `%TEMP%\dx-reportes.log`, escrito por
 - **Suscribir `action.Execute` en `OnActivated` (con `-=; +=`) y desuscribir SOLO en `OnDeactivated`**: XAF reutiliza la misma instancia del controller entre list⇄detalle; si se suscribe solo en el constructor y se desengancha en `OnDeactivated`, tras la primera desactivación la acción "no hace nada" (el clic llega al servidor sin manejador) hasta recargar la página entera.
 - Los overlays/visores propios con CSS deben eliminarse al cerrar; un overlay remanente bloquea todos los clics de la app al volver a la lista.
 
+## Entradas de combustible e inventario (mapeo de tablas legadas)
+
+- `EntradaCombustible`/`EntradaCombustibleDetalle`/`Inventario` se mapean a las tablas legadas `RecepcionResumen`/`RecepcionDetalle`/`Inventarios` con `[Table(...)]`. **No hay migración EF para ellas** (las tablas ya existen; no tocar la BD). Los tipos Id escalares deben respetar la DDL legada exacta (Inventarios usa `bigint` → `long`).
+- La BD legada tiene triggers en turnos `TR_RecepcionResumen_*`/`TR_RecepcionDetalle_*`: el código no debe duplicar lo que hacen (terminada/bloqueos), solo convivir (terminar/cancelar actualiza `Inventarios` en el MISMO ObjectSpace y un solo `CommitChanges`).
+- Inventario: precio = **promedio ponderado** (Precio×TasaCambio de línea); Cancelar revierte con fórmula inversa ("desponderar") con guardas de >0 en precio y existencia.
+- Precio del detalle de entrada **no es editable** (`[ModelDefault("AllowEdit","False")]`): el controller lo sugiere de `Inventario` del depósito (si existe) o del `PCosto` de `TipoCombustible`.
+- Consecutivo de entradas se genera en código (`IXafEntityObject.OnSaving` + `IObjectSpaceLink`); el trigger de consecutivo solo existe en compras (encriptado e inaccesible). Implementar `IObjectSpaceLink` con **implementación explícita de interfaz** para que la propiedad no aparezca en vistas (no `[NotMapped]`, que no basta allí).
+
+## Gotchas de DevExpress 22.1.3 EF Core (atributos)
+
+- **`[DefaultProperty]` NO está en `DevExpress.Persistent.Base`** (CS0246/CS0234 lo confirma). En este setup se resuelve con `using System.ComponentModel;`. `DefaultClassOptions`, `NavigationItem`, `VisibleInListView/DetailView/LookupListView`, `RuleRequiredField` etc. sí están en `DevExpress.Persistent.Base`/`DevExpress.Persistent.Validation`.
+- `SelectionDependencyType` solo tiene `RequireMultipleObjects` y `RequireSingleObject` (no hay "NoSelection"/"IndependentOf"): para una acción independiente de la selección, **omitir la propiedad**.
+- `SimpleAction`/controller compartidos Blazor+Win: usar el patrón `OnActivated` (`-=;+=`) descrito arriba (aplicado también a `CompraCombustibleController`).
+
 ## Model Editor / vistas
 
 - La personalización de vistas (orden de columnas, índices) vive en `DXComnTransp.Module\Model.DesignedDiffs.xafml`; `Model.xafml` de cada app es el nodo de aplicación.

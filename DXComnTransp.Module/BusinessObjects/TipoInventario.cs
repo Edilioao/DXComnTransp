@@ -1,12 +1,14 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DXComnTransp.Module.BusinessObjects;
 
 [DefaultClassOptions]
 [NavigationItem("Catálogos")]
+[DefaultProperty(nameof(TpoInventario))]
 [Table("TipoInventario")]
 public class TipoInventario
 {
